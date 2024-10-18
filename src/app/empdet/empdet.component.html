@@ -1,0 +1,24 @@
+<app-empform [id]="empid" [isedit]="isEdit" (dataemit)="Dataemit($event)"></app-empform>
+<h1>Employee Details</h1>
+<table border *ngIf="empdetarray.length>0;else show">
+    <tr>
+        <th>Sl.No.</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email ID</th>
+        <th>Phone Number</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    <tr *ngFor="let emp of empdetarray">
+        <td>{{emp.id}}</td>
+        <td>{{emp.name}}</td>
+        <td>{{emp.username}}</td>
+        <td>{{emp.email}}</td>
+        <td>{{emp.phone}}</td>
+        <td><button (click)="edit(emp.id, emp)">Edit</button></td>
+        <td><button (click)="delete(emp.id)">Delete</button></td>    
+    </tr>
+</table>
+<ng-template #show>
+    <p>No Details Found</p>
+</ng-template>

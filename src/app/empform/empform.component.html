@@ -1,0 +1,23 @@
+<h1>Add Employee Details</h1>
+<form [formGroup]="empdetails">
+    <div>
+        <label> Name: </label>
+        <input placeholder="Enter Employee Name" formControlName="name">
+    </div>
+    <div>
+        <label>Username: </label>
+        <input placeholder="Enter Username of Employee" formControlName="username">
+    </div>
+    <div>
+        <label>Email: </label>
+        <input placeholder="Enter Employee's Email ID" formControlName="email">
+    </div>
+    <div>
+        <label>Phone: </label>
+        <input placeholder="Enter Employee's Phone Number" formControlName="phone">
+    </div>
+    <div>
+        <button (click)="add()" *ngIf="!isedit">Add Employee</button>
+        <button (click)="update()" *ngIf="isedit">Update</button>
+    </div>
+</form>
