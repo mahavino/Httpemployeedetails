@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,9 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 export class ServiceService {
 
   constructor(private http:HttpClient) { }
-
-  private subj = new BehaviorSubject<any[]>([]);
-  behsubj = this.subj.asObservable();
+  updatevar = new EventEmitter()
+  idno = new EventEmitter()
   
   posting(data:any){
     return this.http.post('http://localhost:3000/posts', data);
@@ -24,7 +23,13 @@ export class ServiceService {
   deleting(id:any){
     return this.http.delete(`http://localhost:3000/posts/${id}`)
   }
-  updatedet(data:any[]){
-    this.subj.next(data)
+  setting(data:any){
+    return data
+  }
+  bool(bool:any){
+    this.updatevar.emit(bool);
+  }
+  idnum(id:any){
+    this.idno.emit(id);
   }
 }

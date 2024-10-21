@@ -1,5 +1,5 @@
-<app-empform [id]="empid" [isedit]="isEdit" (dataemit)="Dataemit($event)"></app-empform>
-<h1>Employee Details</h1>
+<button routerLink="/empform">Add New</button>
+<h1>User Details</h1>
 <table border *ngIf="empdetarray.length>0;else show">
     <tr>
         <th>Sl.No.</th>

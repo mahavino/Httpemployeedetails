@@ -1,18 +1,3 @@
 {
-  "posts": [
-    {
-      "name": "yghjk",
-      "username": "234567",
-      "email": "wer@wer.con",
-      "phone": "er",
-      "id": "1f2a"
-    },
-    {
-      "name": "iohuihi",
-      "username": "7890",
-      "email": "uyuiyiu@tyfty.com",
-      "phone": "iuyuiyu",
-      "id": "0055"
-    }
-  ]
+  "posts": []
 }
