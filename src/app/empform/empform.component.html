@@ -1,23 +1,43 @@
-<h1>Add Employee Details</h1>
+<div id="whole">
+<h1>Add User Details</h1>
 <form [formGroup]="empdetails">
-    <div>
+    <div class="div">
         <label> Name: </label>
-        <input placeholder="Enter Employee Name" formControlName="name">
+        <input class="input" placeholder="Enter User Name" formControlName="name">
     </div>
-    <div>
+    <div *ngIf="empdetails.get('name').invalid && empdetails.get('name').touched">
+        <small *ngIf="empdetails.get('name').errors.required">Name is required.</small>
+        <small *ngIf="empdetails.get('name').errors.pattern">Only first letter should be in capital, name should not be in one letter and .</small>
+    </div>
+    <div class="div">
         <label>Username: </label>
-        <input placeholder="Enter Username of Employee" formControlName="username">
+        <input class="input" placeholder="Enter Username of User" formControlName="username">
     </div>
-    <div>
+    <div *ngIf="empdetails.get('username').invalid && empdetails.get('username').touched">
+        <small *ngIf="empdetails.get('username').errors.required">Username is required.</small>
+        <small *ngIf="empdetails.get('username').errors.pattern">Username can only contain letters, numbers, and specific special characters (@#-_&.).</small>
+        <small *ngIf="empdetails.get('username').errors.usernameTaken">Username already exists.</small>
+    </div>
+    <div class="div">
         <label>Email: </label>
-        <input placeholder="Enter Employee's Email ID" formControlName="email">
+        <input class="input" placeholder="Enter User's Email ID" formControlName="email">
     </div>
-    <div>
+    <div *ngIf="empdetails.get('email').invalid && empdetails.get('email').touched">
+        <small *ngIf="empdetails.get('email').errors.required">Email ID is required.</small>
+        <small *ngIf="empdetails.get('email').errors.email">Provide proper email id.</small>
+        <small *ngIf="empdetails.get('email').errors.emailTaken">Email already exists.</small>
+    </div>
+    <div class="div">
         <label>Phone: </label>
-        <input placeholder="Enter Employee's Phone Number" formControlName="phone">
+        <input class="input" type="number" placeholder="Enter User's Phone Number" formControlName="phone">
     </div>
-    <div>
-        <button (click)="add()" *ngIf="!isedit">Add Employee</button>
+    <div *ngIf="empdetails.get('phone').invalid && empdetails.get('phone').touched">
+        <small *ngIf="empdetails.get('phone').errors.required">Phone number is required.</small>
+        <small *ngIf="empdetails.get('phone').errors.pattern">Enter 10 digit proper phone number.</small>
+    </div>
+    <div class="button">
+        <button (click)="add()" *ngIf="!isedit">Add User</button>
         <button (click)="update()" *ngIf="isedit">Update</button>
     </div>
 </form>
+</div>

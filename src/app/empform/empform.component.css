@@ -1,0 +1,51 @@
+#whole{
+    background-color: rgb(209, 241, 231);
+    height: 350px;
+    padding: 50px;
+    width: 320px;
+    align-content: center;
+    position: relative;
+    left: 33%;
+    border: 2px solid rgb(63, 26, 230);
+}
+.div{
+    position: relative;
+    padding: 10px;
+}
+.input{
+    position: absolute;
+    left: 100px;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+h1{
+    background-color: rgb(132, 132, 228);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+}
+button{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+}
+button:hover{
+    background-color: black;
+    color: white;
+}
+button:active{
+    background-color: green;
+    color: white;
+}
+input{
+    border: 1px solid black;
+    padding: 5px;
+}
+input:hover{
+    background-color: rgb(132, 133, 143);
+}
