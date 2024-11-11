@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ServiceService } from '../service.service';
-import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-empform',
@@ -10,71 +9,92 @@ import { map, switchMap } from 'rxjs';
   styleUrls: ['./empform.component.css']
 })
 export class EmpformComponent {
-constructor(private fb:FormBuilder, private service:ServiceService, private router:Router){}
+constructor(private fb:FormBuilder, private service:ServiceService, private router:Router, private route:ActivatedRoute){
+  this.empdetails = this.fb.group({
+    name:["", [Validators.required, Validators.pattern('^[A-Z]+[a-z ]+$')]],
+    username:["", [Validators.required, Validators.pattern('^[A-Z][a-z]+[@#-_&.][0-9]+$'), this.usernameexists.bind(this)]],
+    email:["", [Validators.required, Validators.pattern('^[a-z0-9]+[@][a-z]+[.][a-z]+'), this.emailexists.bind(this)]],
+    phone:["", [Validators.required, Validators.pattern('^[0-9]{10}$'), this.phoneexists.bind(this)]]
+  });
+}
 
-id:any;
-isedit:any;
+isedit = false;
 empdetails:any;
-det:any;
-resp:any;
-emparray:any[]=[];
-isEdit = false;
+checking:any;
+user:any;
+usernames:any[]=[];
+emails:any[]=[];
+phones:any[]=[];
+
+usernameexists(control: FormControl){
+  const username = control.value;
+  const check = this.usernames.includes(username);
+  if(check){
+    return { usernameexists:true};
+  }
+  return null;
+}
+
+emailexists(control:FormControl){
+  this.checking = control;
+  const email = control.value;
+  const check = this.emails.includes(email);
+  if(check){
+    return {emailexists: true}
+  }
+  return null
+}
+
+emailvalidate(control:FormControl){
+
+}
+
+phoneexists(control:FormControl){
+  const phone = control.value;
+  const check = this.phones.includes(phone);
+  if(check){
+    return {phoneexists: true}
+  }
+  return null
+}
 
 ngOnInit(){
-  this.empdetails = this.fb.group({
-    name:[]=["", [Validators.required, Validators.pattern('^[A-Z]{1}[a-z ]+$')]],
-    username:[]=["", [Validators.required, Validators.pattern('^[A-Z][a-z]+[@#-_&.][0-9]+$')]],
-    email:[]=["", [Validators.required, Validators.email]],
-    phone:[]=["", [Validators.required, Validators.pattern('^[0-9]{10}$')]]
-  });
-  // Add asynchronous validation for username and email
-  this.empdetails.get('username')?.valueChanges.pipe(
-    switchMap(value => this.service.getting().pipe(
-      map((users:any) => !users.some((user:any) => user.username === value))
-    ))
-  ).subscribe((isValid: any) => {
-    if (!isValid) {
-      this.empdetails.get('username')?.setErrors({ usernameTaken: true });
-    }
-  });
-
-  this.empdetails.get('email')?.valueChanges.pipe(
-    switchMap(value => this.service.getting().pipe(
-      map((users:any) => !users.some((user:any) => user.email === value))
-    ))
-  ).subscribe((isValid: any) => {
-    if (!isValid) {
-      this.empdetails.get('email')?.setErrors({ emailTaken: true });
-    }
-  });
-  this.service.setting(this.empdetails).subscribe((res:any)=>{
-    if(res){
-      this.empdetails.setValue({
-        name: res.name,
-        username: res.username,
-        email: res.email,
-        phone: res.phone
-      });
-      this.isedit = this.service.updatevar
-      this.id = this.service.idno
+  console.log(this.checking)
+  this.get();
+  this.route.params.subscribe(param => {
+    if(param && param['id']){
+      this.service.gettingById(param['id']).subscribe((res:any)=>{
+        this.empdetails.setValue({
+          name:res.name,
+          username:res.username,
+          email:res.email,
+          phone:res.phone
+        });
+        this.isedit = true;
+      })
     }
   })
 }
 
 add(){
   if(this.empdetails.valid){
-  this.service.posting(this.empdetails.value).subscribe();
-  this.empdetails.reset();
-  this.router.navigate(["/empdet"]);
-  }
-  else{
-    alert("Enter Valid Details!!..")
-  }
+  this.service.posting(this.empdetails.value).subscribe()
+    this.empdetails.reset();
+    this.router.navigate(["/empdet"]);
+}
 }
 
 update(){
-  if(this.empdetails.valid){
-  this.service.editing(this.id, this.empdetails.value).subscribe(()=>this.router.navigate(["/empdet"]));
-  }
+  const id = this.route.snapshot.params['id']; // Get ID from route
+    this.service.editing(id, this.empdetails.value).subscribe(() => {
+      this.router.navigate(['/empdet']);
+    });
+}
+get(){
+  this.service.getting().subscribe((res:any)=>{
+    this.usernames = res.map((user:any) => user.username);
+    this.emails = res.map((user:any) => user.email);
+    this.phones = res.map((user:any) => user.phone);
+  })
 }
 }

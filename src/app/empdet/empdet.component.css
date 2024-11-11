@@ -1,0 +1,41 @@
+table, td, th{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td, .th{
+    padding: 0.5rem;
+}
+table{
+    position: absolute;
+    left: 25%;
+    top: 20%;
+}
+td,th{
+    background-color: aquamarine;
+}
+button{
+    background-color: rgb(166, 192, 240);
+    border: 1px solid black;
+    padding: 5px;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+table{
+    text-align: center;
+}
+.head{
+    display: flex;
+}
+.addnew{
+    margin-left: 45%;
+}
+h1{
+    margin-left: 25%;
+}
+.input{
+    margin-left: 61.4%;
+}
+h2{
+    margin-left: 45%;
+}

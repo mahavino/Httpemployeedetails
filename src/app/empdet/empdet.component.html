@@ -1,24 +1,29 @@
-<button routerLink="/empform">Add New</button>
-<h1>User Details</h1>
-<table border *ngIf="empdetarray.length>0;else show">
+<h1>User Details <button class="addnew" routerLink="/empform">Add New User</button></h1>
+<div class="input">
+    <input type="text" [(ngModel)]="searchword" placeholder="Search here..." [ngModelOptions]="{standalone:true}"><button
+        (click)="search()">Search</button>
+</div>
+<table *ngIf="filteredempdetarray.length>0;else show">
     <tr>
-        <th>Sl.No.</th>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Email ID</th>
-        <th>Phone Number</th>
-        <th colspan="2">Actions</th>
+        <th class="th">Sl.No.</th>
+        <th class="th">Name</th>
+        <th class="th">User ID</th>
+        <th class="th">Username</th>
+        <th class="th">Email ID</th>
+        <th class="th">Phone Number</th>
+        <th class="th" colspan="2">Actions</th>
     </tr>
-    <tr *ngFor="let emp of empdetarray">
-        <td>{{emp.id}}</td>
+    <tr *ngFor="let emp of filteredempdetarray; let i = index">
+        <td>{{i+1}}</td>
         <td>{{emp.name}}</td>
+        <td>{{emp.id}}</td>
         <td>{{emp.username}}</td>
         <td>{{emp.email}}</td>
         <td>{{emp.phone}}</td>
-        <td><button (click)="edit(emp.id, emp)">Edit</button></td>
-        <td><button (click)="delete(emp.id)">Delete</button></td>    
+        <td><button [routerLink]="['/empform',emp.id]">Edit</button></td>
+        <td><button (click)="delete(emp.id)">Delete</button></td>
     </tr>
 </table>
 <ng-template #show>
-    <p>No Details Found</p>
+    <h2>No Details Found</h2>
 </ng-template>

@@ -1,20 +1,33 @@
 #whole{
-    background-color: rgb(209, 241, 231);
-    height: 350px;
-    padding: 50px;
-    width: 320px;
+    background-color: rgb(0, 88, 55);
+    height: 550px;
+    color: white;
+    width: 350px;
     align-content: center;
     position: relative;
-    left: 33%;
-    border: 2px solid rgb(63, 26, 230);
+    left: 38%;
+    margin-top: 3.5%;
+    border: none;
+    border-radius: 50px;
+}
+div, small, label{
+    background-color: rgb(0, 88, 55);
 }
 .div{
     position: relative;
     padding: 10px;
 }
 .input{
-    position: absolute;
-    left: 100px;
+    border: none;
+    color: white;
+    border-bottom: 1px solid white;
+    background-color: rgb(0, 88, 55);
+    margin-left: 25%;
+    text-align: center;
+    color: white;
+}
+small{
+    margin-left: 5%;
 }
 .button{
     display: flex;
@@ -23,29 +36,16 @@
     padding: 20px;
 }
 h1{
-    background-color: rgb(132, 132, 228);
+    background-color: rgb(0, 88, 55);
     color: white;
     padding: 5px;
     border-radius: 10px;
     text-align: center;
 }
 button{
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 5px;
+    width: 150px;
+    color: rgb(0, 88, 55);
     border-radius: 10px;
-}
-button:hover{
-    background-color: black;
-    color: white;
-}
-button:active{
-    background-color: green;
-    color: white;
-}
-input{
-    border: 1px solid black;
-    padding: 5px;
-}
-input:hover{
-    background-color: rgb(132, 133, 143);
 }

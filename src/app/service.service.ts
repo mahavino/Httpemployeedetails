@@ -8,8 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ServiceService {
 
   constructor(private http:HttpClient) { }
-  updatevar = new EventEmitter()
-  idno = new EventEmitter()
+  updatevar = new EventEmitter<any>()
   
   posting(data:any){
     return this.http.post('http://localhost:3000/posts', data);
@@ -24,12 +23,9 @@ export class ServiceService {
     return this.http.delete(`http://localhost:3000/posts/${id}`)
   }
   setting(data:any){
-    return data
+    this.updatevar.emit(data)
   }
-  bool(bool:any){
-    this.updatevar.emit(bool);
-  }
-  idnum(id:any){
-    this.idno.emit(id);
+  gettingById(id: any) {
+    return this.http.get(`http://localhost:3000/posts/${id}`);
   }
 }

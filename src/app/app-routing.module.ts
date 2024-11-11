@@ -7,6 +7,7 @@ import { PagenotfoundComponent } from './pagenotfound.component';
 const routes: Routes = [
     { path: "", redirectTo: "/empdet", pathMatch: 'full' },
     { path: "empform", component: EmpformComponent },
+    { path: "empform/:id", component: EmpformComponent },
     { path: "empdet", component: EmpdetComponent },
     { path: "**", component:PagenotfoundComponent }
 ]
